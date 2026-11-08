@@ -1,0 +1,10 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.localprospects/mcp",
+  "title": "LocalProspects",
+  "description": "Find local businesses on Google Maps with owner names, emails, phone line types and socials.",
+  "version": "1.0.0",
+  "websiteUrl": "https://localprospects.ai/docs",
+  "icons": [{ "src": "https://localprospects.ai/logos/lp-logo-120.png", "mimeType": "image/png", "sizes": ["120x120"] }],
+  "remotes": [{ "type": "streamable-http", "url": "https://localprospects.ai/api/mcp" }]
+}
