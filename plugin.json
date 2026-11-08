@@ -1,0 +1,15 @@
+{
+  "name": "localprospects",
+  "displayName": "LocalProspects",
+  "version": "1.0.0",
+  "agentPlugins": "1.0.0",
+  "description": "Find local businesses on Google Maps with owner names, business emails, phone line types and social profiles, and export leads from your AI agent.",
+  "author": { "name": "LocalProspects", "email": "contact@boldslate.com", "url": "https://localprospects.ai" },
+  "homepage": "https://localprospects.ai/docs",
+  "repository": "https://github.com/BennettBlackCode/localprospects-mcp",
+  "license": "MIT",
+  "logo": "assets/logo-400.png",
+  "keywords": ["lead-generation", "google-maps", "local-business", "sales", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}
