@@ -1,0 +1,162 @@
+{
+  "identifier": "localprospects",
+  "name": "LocalProspects",
+  "version": "1.0.0",
+  "author": "LocalProspects",
+  "authorUrl": "https://localprospects.ai",
+  "description": "Find local businesses on live Google Maps data, enriched with owner names, business emails, phone line types and social profiles, and run multi-city lead campaigns and CSV exports. Official remote MCP server (OAuth or API key).",
+  "homepage": "https://localprospects.ai/docs",
+  "cloudEndpoint": "https://localprospects.ai/api/mcp",
+  "icon": "https://raw.githubusercontent.com/BennettBlackCode/localprospects-mcp/main/assets/logo-400.png",
+  "tags": [
+    "lead-generation",
+    "google-maps",
+    "local-business",
+    "sales",
+    "prospecting",
+    "data-enrichment",
+    "email-finder"
+  ],
+  "tools": [
+    {
+      "name": "check_credits",
+      "description": "Lead credits left on the account and its plan. One credit per business a search finds, and one per domain enriched.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "find_location",
+      "description": "Turns a city name like \"Austin, TX\" into the location_code that search_businesses needs. Returns up to 8 matches, US cities first; pick the one the user means.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "search_businesses",
+      "description": "Finds local businesses for a niche in one location on Google Maps, then enriches each one (owner name, other contacts, emails, phone line type, socials, BBB rating). Uses one lead credit per business found, up to depth; unused credits are refunded. Confirm the niche, city and depth with the user first (check_credits). Returns a job_id; follow it with search_status, then get_results.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "search_status",
+      "description": "Where a search job is (searching, enriching, completed or error), how many businesses it found, and the credits it used.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_results",
+      "description": "The enriched businesses from a search: name, category, website and website status, owner (with first name, last name, title, whether the website and BBB both confirm them, and their personal email), other contacts with titles, BBB rating and accreditation, emails, phones with line type, socials, website tech, Google rating and address. Page through big lists with offset and limit; the filters keep only businesses that have a website, email, phone or mobile phone.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "enrich_domains",
+      "description": "Enriches businesses you already have by their website: owner name, emails, phones with line type, socials. Uses one lead credit per domain, up to 10 per call. Confirm the list and cost with the user first.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "find_campaign_locations",
+      "description": "Finds the countries, states and cities a campaign can cover, with how many searchable cities each holds (eligible_count). Search by name with query (there are no counties: include the state, or its cities one by one), list a state's cities with parent_code (100 at a time, then next_offset), or send neither for the countries. Pass location_codes to create_campaign as include or exclude.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "preview_campaign",
+      "description": "Shows what a campaign would cover before creating it: how many cities it would search and the most credits that could use. Nothing is saved and no credits are used.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "create_campaign",
+      "description": "Saves a campaign that searches one niche across many cities. It is created ready but not running and uses no credits until start_campaign. Run preview_campaign first and confirm the area and cost with the user.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "list_campaigns",
+      "description": "The account's campaigns, newest first, with status, progress and leads found.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_campaign",
+      "description": "A campaign's status, progress, credits used and its 10 most recent city searches.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "update_campaign",
+      "description": "Replaces a campaign's area, lead cap or name; send the whole definition. The keyword can't change once the campaign has started. Completed or stopped campaigns can't be edited.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "start_campaign",
+      "description": "Starts a ready campaign. It then searches its cities one by one in the background, using one lead credit per business found, until it covers every city, reaches max_leads or runs out of credits. Confirm with the user first (preview_campaign, check_credits). To continue a paused campaign, use resume_campaign.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "resume_campaign",
+      "description": "Resumes a paused campaign where it left off, searching its remaining cities in the background and using one lead credit per business found, until it covers every city, reaches max_leads or runs out of credits. Confirm with the user first (check_credits).",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "pause_campaign",
+      "description": "Pauses a running campaign so resume_campaign can continue it later. Leads already found are kept.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "stop_campaign",
+      "description": "Ends a campaign for good: a stopped campaign can't be resumed or edited. Leads already found are kept. Confirm with the user first; to halt it for now, use pause_campaign.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_campaign_leads",
+      "description": "The enriched leads a campaign has found so far, deduplicated across its cities, a page at a time. query filters by text such as a name, city or email domain.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "export_campaign",
+      "description": "Builds a CSV file of every lead a campaign has found, ready for a CRM: advanced (every field), simple, gohighlevel, instantly or oneclickwebsite. Small lists are usually ready within this call; otherwise follow it with get_export. Give the user the download_url; it works without signing in. The link is also emailed to the account's own address. Uses no credits.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_export",
+      "description": "An export's progress, and its download_url once the file is ready.",
+      "inputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "add_search_to_campaign",
+      "description": "Adds a finished search_businesses job's leads to a campaign, so its city counts as covered. Uses no credits.",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  ]
+}
